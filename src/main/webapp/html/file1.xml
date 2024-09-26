@@ -1,0 +1,13 @@
+<!DOCTYPE playlist SYSTEM "playlist.dtd">
+<playlist>
+    <content>
+        <file>banner2.html</file>
+    </content>
+    <content>
+        <file>banner1.html</file>
+    </content>
+    <content>
+        <file>banner3.html</file>
+    </content>
+</playlist>
+

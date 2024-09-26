@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Stato degli Impianti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/kMVqEHE5Sc3gJ6sd1pbb6R6ywRoDtbIY1poClxCR69Ulr8ndmNHM+3zslXObi/8/YT6H4szsbK9lg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+        }
+        .header {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .tables-container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100%;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .table-wrapper {
+            width: 45%;
+            background-color: #ffffff;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: left;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    Visualizza Stati Impianti
+</div>
+<div class="tables-container">
+    <div class="table-wrapper" id="active-table">
+        <h2>Impianti Attivi</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID Impianto</th>
+                <th>Ultimo Segnale</th>
+            </tr>
+            </thead>
+            <tbody id="active-plants-table">
+            </tbody>
+        </table>
+    </div>
+    <div class="table-wrapper" id="inactive-table">
+        <h2>Impianti Non Attivi</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID Impianto</th>
+                <th>Ultimo Segnale</th>
+            </tr>
+            </thead>
+            <tbody id="inactive-plants-table">
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function loadPlantData() {
+            fetch('/MonitoringServlet')
+                .then(function (response) { return response.json(); })
+                .then(function (plants) {
+                    var currentTime = Date.now();
+                    var activeTableBody = document.getElementById('active-plants-table');
+                    var inactiveTableBody = document.getElementById('inactive-plants-table');
+
+                    plants.forEach(function (plant) {
+                        var lastSignalTime = new Date(plant.lastSignal);
+                        var timeDifference = (currentTime - lastSignalTime.getTime()) / 1000 / 60; // convertito in minuti
+                        var row;
+
+                        if (timeDifference <= 2) { // segnale inviato negli ultimi due minuti
+                            row = activeTableBody.insertRow();
+                            row.insertCell(0).textContent = plant.idImpianto;
+                            row.insertCell(1).textContent = lastSignalTime.toLocaleString();
+                        } else {
+                            row = inactiveTableBody.insertRow();
+                            row.insertCell(0).textContent = plant.idImpianto;
+                            row.insertCell(1).textContent = lastSignalTime.toLocaleString();
+                        }
+                    });
+                })
+                .catch(function (error) {
+                    console.error('Errore nel caricamento dei dati:', error);
+                });
+        }
+        loadPlantData();
+    });
+</script>
+</body>
+</html>

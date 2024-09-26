@@ -1,0 +1,103 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#fullscreen-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+}
+
+.scrolling-text {
+    overflow: hidden;
+    height: 30px;
+    padding: 0 40px;
+    font-size: 1.8rem;
+    font-family:"Arial";
+    font-weight: bold;
+    position: absolute;
+    opacity: 1;
+    top:48%;
+    right: 40%;
+    color: white;
+}
+
+.content__container {
+    
+    overflow: hidden;
+    height: 30px;
+    padding: 0 40px;
+}
+
+
+.content__container__text {
+    display: inline;
+    float: left;
+    margin: 0;
+}
+
+.content__container__list {
+    margin-top: 0;
+    padding-left: 110px;
+    text-align: left;
+    list-style: none;
+    animation-name: change;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    
+}
+
+
+
+@keyframes opacity {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes change {
+    0%, 12.66%, 100% {
+        transform: translate3d(0, 0%, 0);
+    }
+    16.66%, 29.32% {
+        transform: translate3d(0, -33%, 0);
+    }
+    33.32%, 45.98% {
+        transform: translate3d(0, -66%, 0);
+    }
+    49.98%, 62.64% {
+        transform: translate3d(0, -99%, 0);
+    }
+    66.64%, 79.3% {
+        transform: translate3d(0, -66%, 0);
+    }
+    83.3%, 95.96% {
+        transform: translate3d(0, -33%, 0);
+    }
+}

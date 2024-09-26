@@ -1,0 +1,32 @@
+
+*
+{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fff;
+    background-image: url(gifnavigare.gif); /* Imposta l'immagine di sfondo */
+    background-size: 100%; /* Per adattare l'immagine al contenitore */
+    background-position: center; /* Posiziona l'immagine al centro */
+}
+.content{
+    position: relative;
+}
+.content h2{
+  
+    color: transparent;
+    font-weight: 900;
+    font-size: 14em;
+    -webkit-text-stroke: 2px #fff;
+    text-transform: uppercase;
+
+}
+

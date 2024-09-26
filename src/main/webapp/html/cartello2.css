@@ -1,0 +1,70 @@
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: black; /* Imposta il colore di sfondo a nero */
+    justify-content: center;
+}
+
+
+img {
+
+    display: block;
+
+    /*Centra l'immagine sia verticalmente che orizzontalmente */
+    margin: auto;
+    position: relative;
+    border: 4px solid rgba(255, 255, 255, 0.7); /* Aggiunge un bordo bianco con trasparenza */
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.7); /* Aggiunge un'ombra bianca con trasparenza */
+
+}
+.text-overlay {
+
+    position: relative;
+    top: -100px;
+    margin: auto; 
+    color: white; /* Colore del testo bianco */
+    font-size: 10em; /* Dimensione del carattere */
+    font-family:"Courier New" ;
+    text-align: center; /* Allinea il testo al centro */
+    animation: neonFade 5s infinite;
+
+}
+.container{
+    
+    margin-top: 185px;
+}
+@keyframes neonFade {
+
+    0% { opacity: 0; }
+    50% { opacity: 1; text-shadow: 0 0 10px #492a14, 0 0 20px #492a14, 0 0 30px #492a14, 0 0 40px #492a14, 0 0 50px #492a14, 0 0 60px #492a14, 0 0 70px #492a14; }
+    100% { opacity: 0; }
+}
+
+
+.word {
+    margin-right: 20px; /* Aggiunge uno spazio tra le parole */
+    color: rgb(255, 255, 255); /* Colore del testo bianco */
+    font-size: 30px; /* Dimensione del carattere*/
+    font-family: "Courier New", Courier, monospace; /* Font-family per il testo */
+}
+.word1 {
+    margin-right: 20px; /* Aggiunge uno spazio tra le parole */
+    color: rgb(255, 255, 255); /* Colore del testo bianco */
+    font-size: 30px; /* Dimensione del carattere */
+    font-family: "Courier New", Courier, monospace; /*Font-family per il testo */
+}
+.word-container.top {
+    position: absolute;
+    top: 250px;
+    left: 0;
+    right: 0;
+}
+
+/* Stile per parole sotto l'immagine */
+.word-container.bottom {
+    position: absolute;
+    bottom: 250px;
+    left: 0;
+    right: 0;
+}

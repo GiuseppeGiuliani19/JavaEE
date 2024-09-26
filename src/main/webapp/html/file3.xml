@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<playlist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="fileprincipale.xsd">
+    <content>
+        <file>banner1.html</file>
+    </content>
+    <content>
+        <file>banner5.html</file>
+    </content>
+    <content>
+        <file>banner2.html</file>
+    </content>
+</playlist>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED Wall Display</title>
+    <style>
+        #led-wall {
+            width: 100%;
+            height: 100%;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+        #info-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0);
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            padding: 5px 0;
+            font-family: "Times New Roman";
+        }
+    </style>
+</head>
+<body>
+<div id="led-wall"></div>
+<div id="info-bar">Time: <span id="current-time"></span> - Weather: <span id="weather"></span></div>
+
+<script>
+    async function sendReport() {
+        const idImpianto = 4; // ID statico dell'impianto
+        const idPalinsesto = 4; // ID statico del palinsesto
+        const idCartellone = 4; // ID statico del cartellone
+        const durata = 30; // Durata statica in secondi
+
+        try {
+            const response = await fetch('/DataLoggingServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `idImpianto=${idImpianto}&idPalinsesto=${idPalinsesto}&idCartellone=${idCartellone}&durata=${durata}`
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            console.log('Data sent successfully');
+        } catch (error) {
+            console.error('Failed to send data:', error);
+        }
+    }
+
+    async function loadPlaylist(xmlFile) {
+        try {
+            var response = await fetch(xmlFile);
+            var xmlString = await response.text();
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+            var content = xmlDoc.getElementsByTagName("file");
+            var displayTime = 10000;
+
+            while (true) {
+                for (var i = 0; i < content.length; i++) {
+                    var file = content[i].textContent;
+                    var htmlResponse = await fetch(file);
+                    var html = await htmlResponse.text();
+
+                    document.getElementById("led-wall").innerHTML = html;
+                    // Invio     dei dati al server
+
+
+                    await new Promise(resolve => setTimeout(resolve, displayTime));
+                }
+                await sendReport()
+
+            }
+
+        } catch (error) {
+            console.error('Si è verificato un errore nel caricare la playlist:', error);
+        }
+    }
+
+
+    function updateTime() {
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+
+        minutes = (minutes < 10 ? "0" : "") + minutes;
+        seconds = (seconds < 10 ? "0" : "") + seconds;
+
+        var timeString = hours + ":" + minutes + ":" + seconds;
+        document.getElementById('current-time').textContent = timeString;
+    }
+
+    function updateWeather() {
+        getWeather(38.115688, 13.361267);
+    }
+
+    function getWeather(latitude, longitude) {
+        const apiKey = 'bf0f5c3cde1969b4a63489f65ed2ed8f';
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const weatherDescription = data.weather[0].description;
+                const temperature = data.main.temp;
+                const temperatureString = temperature + "°C";
+
+                document.getElementById('weather').textContent = `${weatherDescription} - ${temperatureString}`;
+            })
+            .catch(error => {
+                console.error('Errore nel recuperare i dati meteo :', error);
+                document.getElementById('weather').textContent = "Errore nel recuperare i dati meteo .";
+            });
+    }
+
+
+
+
+
+    loadPlaylist("file2.xml");
+
+    setInterval(updateTime, 1000);
+    updateWeather();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #000000, #523d3d, #000000);
+    background-size: 400% 400%;
+    animation: neonBackground 7s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    color: #ffffff;
+    text-align: center;
+    
+}
+
+@keyframes neonBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+.neon-text {
+    position: relative;
+    font-size: 6.5rem;
+    font-family: "Times New Roman";
+    font-weight:bold;
+    left:-20px;
+    color: transparent;
+    text-shadow: 0 0 3px #ffffff, 0 0 6px #ffffff, 0 0 9px #ffffff, 0 0 12px #ffffff, 0 0 15px #ffffff, 0 0 18px #ffffff, 0 0 21px #ffffff, 0 0 24px #ffffff;
+    animation: neon-glow 3.5s infinite alternate;
+}
+
+.neon-text span {
+    position: relative;
+    animation: neonText 2s linear forwards;
+    opacity: 0;
+}
+
+
+.neon-text span:nth-child(1) {
+    animation-delay: 0.7s;
+}
+
+.neon-text span:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.neon-text span:nth-child(3) {
+    animation-delay: 1.3s;
+}
+
+.neon-text span:nth-child(4) {
+    animation-delay: 1.6s;
+}
+
+.neon-text span:nth-child(5) {
+    animation-delay: 1.9s;
+}
+
+.neon-text span:nth-child(6) {
+    animation-delay: 2.2s;
+}
+
+.neon-text span:nth-child(7) {
+    animation-delay: 2.5s;
+}
+
+.neon-text span:nth-child(8) {
+    animation-delay: 2.8s;
+}
+
+@keyframes neonText {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes neon-glow {
+    to {
+        color: #ffffff;
+        text-shadow: 0 0 3px #000000, 0 0 6px #000000, 0 0 9px #000000, 0 0 12px #000000, 0 0 15px #000000, 0 0 18px #000000, 0 0 21px #000000, 0 0 24px #000000;
+    }
+}
+@keyframes neonBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
